@@ -23,7 +23,7 @@ app.post('/send-email', async (req, res) => {
     try {
         transporter.sendMail({
             from: 'fujifilm.testing.email@gmail.com',
-            to: 'brendan.smith.zh@gmail.com',
+            to: 'brendan.smith.zh@fujifilm.com',
             subject: 'Your first nodemail',
             html: `<div>Welcome! This is my first nodemail!</h2>`
         }, () => {
