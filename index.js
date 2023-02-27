@@ -27,9 +27,9 @@ app.post('/send-email', (req, res) => {
     try {
         transporter.sendMail({
             from: 'fujifilm.testing.email@gmail.com',
-            to: 'brendan.smith.zh@fujifilm.com',
+            to: 'katie.lugton.ki@fujifilm.com',
             subject: 'Your first nodemail',
-            html: `<div>Welcome! This is my first nodemail!</h2>`
+            html: `<div>Welcome Katie! This is my first nodemail!</h2>`
         }, () => {
             res.status(200).send('Email sent')
             console.log('Got body:', req.body);
