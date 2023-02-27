@@ -23,7 +23,7 @@ transporter.verify((error, success) => {
 
 // app.post('/send-email', async (req, res) => {
 app.post('/send-email', (req, res) => {
-    console.log('Got body:', req.body);
+    console.log('Got body:', req);
     try {
         transporter.sendMail({
             from: 'fujifilm.testing.email@gmail.com',
