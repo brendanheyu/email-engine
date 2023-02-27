@@ -22,6 +22,7 @@ transporter.verify((error, success) => {
 });
 
 app.post('/send-email', async (req, res) => {
+    console.log('Got body:', req.body);
     try {
         transporter.sendMail({
             from: 'fujifilm.testing.email@gmail.com',
@@ -30,7 +31,6 @@ app.post('/send-email', async (req, res) => {
             html: `<div>Welcome! This is my first nodemail!</h2>`
         }, () => {
             res.status(200).send('Email sent')
-            console.log('Got body:', req.body);
         })
     } catch {
         return res.status(400).send('Email not sent')
