@@ -39,6 +39,11 @@ app.post('/send-email', (req, res) => {
     }
 })
 
+app.post('/crap', (req, res) => {
+    let data = req.body;
+    res.send('Data Received: ' + JSON.stringify(data));
+})
+
 const server = http.createServer(app);
 
 server.listen(process.env.PORT || 4000, () => {
