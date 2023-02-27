@@ -21,8 +21,9 @@ transporter.verify((error, success) => {
     console.log("Server is ready to take our messages");
 });
 
-app.post('/send-email', async (req, res) => {
-    console.log('Got body:', req.body.value1);
+// app.post('/send-email', async (req, res) => {
+app.post('/send-email', (req, res) => {
+    console.log('Got body:', req.body);
     try {
         transporter.sendMail({
             from: 'fujifilm.testing.email@gmail.com',
@@ -31,6 +32,7 @@ app.post('/send-email', async (req, res) => {
             html: `<div>Welcome! This is my first nodemail!</h2>`
         }, () => {
             res.status(200).send('Email sent')
+            console.log('Got body:', req.body);
         })
     } catch {
         return res.status(400).send('Email not sent')
