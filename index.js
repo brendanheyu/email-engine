@@ -1,8 +1,10 @@
 const http = require('http');
 const express = require('express');
 const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -28,6 +30,7 @@ app.post('/send-email', async (req, res) => {
             html: `<div>Welcome! This is my first nodemail!</h2>`
         }, () => {
             res.status(200).send('Email sent')
+            console.log('Got body:', req.body);
         })
     } catch {
         return res.status(400).send('Email not sent')
