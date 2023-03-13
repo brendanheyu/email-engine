@@ -46,9 +46,11 @@ app.post('/send-email', (req, res) => {
             html: `<h2>Hey Adam! Email from outside of the great firewall!</h2><p>First mission success, access to an external mail server. </p>`
         }, () => {
             res.status(200).send('Email sent')
+            publishMessage("Email sent!")
             console.log('Got body:', req.body);
         })
     } catch {
+        publishMessage("Email not sent!")
         return res.status(400).send('Email not sent')
     }
 })
