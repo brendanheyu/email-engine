@@ -14,6 +14,7 @@
     "express": "^4.18.2",
     "nodemailer": "^6.9.1",
     "nodemailer-express-handlebars": "^6.0.0",
+    "pubnub": "^7.2.2",
     "ws": "^8.13.0"
   }
 }

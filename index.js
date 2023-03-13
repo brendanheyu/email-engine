@@ -1,7 +1,16 @@
 const http = require('http');
 const express = require('express');
+const path = require('path');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+
+const PubNub = require('pubnub');
+
+const pubnub = new PubNub({
+    publishKey: "pub-c-5cd156d5-5e5a-4024-8c76-19bc04abdc66",
+    subscribeKey: "sub-c-c97bf4f8-11c3-41c1-990f-0a63ea4e657e",
+    userId: "email-engine-server",
+});
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,6 +29,12 @@ transporter.verify((error, success) => {
     if (error) console.error(error);
     console.log("Server is ready to take our messages");
 });
+
+// sendFile will go here
+app.get('/log', function (req, res) {
+    res.sendFile(path.join(__dirname, '/src/log.html'));
+});
+
 
 // app.post('/send-email', async (req, res) => {
 app.post('/send-email', (req, res) => {
@@ -48,3 +63,56 @@ const server = http.createServer(app);
 server.listen(process.env.PORT || 4000, () => {
     console.log(`Server running on port ${4000}`);
 });
+
+
+
+// add listener
+const listener = {
+    status: (statusEvent) => {
+        if (statusEvent.category === "PNConnectedCategory") {
+            console.log("Connected");
+        }
+    },
+    message: (messageEvent) => {
+        showMessage(messageEvent.message.description);
+    },
+    presence: (presenceEvent) => {
+        // handle presence
+    }
+};
+pubnub.addListener(listener);
+
+// publish message
+const publishMessage = async (message) => {
+    await pubnub.publish({
+        channel: "hello_world",
+        message: {
+            title: "greeting",
+            description: message,
+        },
+    });
+}
+
+// subscribe to a channel
+pubnub.subscribe({
+    channels: ["hello_world"],
+});
+
+// built-in package for reading from stdin
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+readline.setPrompt("");
+readline.prompt();
+// publish after hitting return
+readline.on('line', (message) => {
+    publishMessage(message).then(() => {
+        readline.prompt();
+    });
+});
+
+const showMessage = (msg) => {
+    console.log("message: " + msg);
+}
