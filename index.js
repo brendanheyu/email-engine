@@ -26,9 +26,9 @@ app.post('/send-email', (req, res) => {
     try {
         transporter.sendMail({
             from: 'fujifilm.testing.email@gmail.com',
-            to: 'brendanheyu@gmail.com',
+            to: 'adam.lowry.ps@fujifilm.com',
             subject: 'Your first nodemail',
-            html: `<div>Welcome Brendan! This is my first nodemail!</h2>`
+            html: `<h2>Hey Adam! Email from outside of the great firewall!</h2><p>First mission success, access to an external mail server. </p>`
         }, () => {
             res.status(200).send('Email sent')
             console.log('Got body:', req.body);
