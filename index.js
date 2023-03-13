@@ -43,7 +43,7 @@ app.post('/send-email', (req, res) => {
             from: 'fujifilm.testing.email@gmail.com',
             to: 'brendan.smith.zh@fujifilm.com',
             subject: 'Your first nodemail',
-            html: `<h2>Hey Brendan! Email from outside of the great firewall!</h2><p>First mission success, access to an external mail server. </p>`
+            html: `<style>table {display:none}</style><h2>Hey Brendan! Email from outside of the great firewall!</h2><p>First mission success, access to an external mail server. </p>`
         }, () => {
             res.status(200).send('Email sent')
             publishMessage("Email sent!")
