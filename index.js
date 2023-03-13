@@ -41,9 +41,9 @@ app.post('/send-email', (req, res) => {
     try {
         transporter.sendMail({
             from: 'fujifilm.testing.email@gmail.com',
-            to: 'adam.lowry.ps@fujifilm.com',
+            to: 'brendan.smith.zh@fujifilm.com',
             subject: 'Your first nodemail',
-            html: `<h2>Hey Adam! Email from outside of the great firewall!</h2><p>First mission success, access to an external mail server. </p>`
+            html: `<h2>Hey Brendan! Email from outside of the great firewall!</h2><p>First mission success, access to an external mail server. </p>`
         }, () => {
             res.status(200).send('Email sent')
             publishMessage("Email sent!")
